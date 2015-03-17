@@ -145,3 +145,16 @@ ISR(ADC_vect)
 		if (spi_data.len>0) SPDR=spi_data.data[spi_data.index];
 		else spi_data.state=Complete;	
 }
+
+
+uint8_t SPI_Release (void)
+{
+	uint8_t ret_val=0;
+	if (spi_data.len==0 && spi_data.state==Complete) 
+	{
+		spi_data.state=Idle;
+		ret_val=1;
+	}
+	return ret_val;
+	
+}
